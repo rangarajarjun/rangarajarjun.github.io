@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<h2>FORTY SHADES OF GREEN</h2>
+<div id="txt">00:00</div>
+
+
+
+<script>
+
+//Declarations
+var best =[1000,1000,1000,1000,1000];
+var best1 =[1000,1000,1000,1000,1000];
+var count = 1;
+var arr=[];
+var m = 0;
+m = checkTime(m);
+var s = 0;
+var z = 0;
+var p =[];
+var w = 0;
+var t;
+var x;
+var pp;
+var mode;
+var r =0;
+var d =0;
+
+//Functions
+function mode1()
+{
+  mode =1;	
+  pp = 21;
+ document.getElementById("dem").disabled = false;	
+}
+function mode2()
+{
+  mode =2;	
+  pp = 26;
+  document.getElementById("dem").disabled = false; 
+}
+function startgame()
+{	
+ starting();	
+ t = setInterval(startTime,1000);
+ arr = shuffle(arr);
+ for(var j=1;j<pp;j++)
+ {
+   x = document.getElementById("b"+j.toString());
+   x.innerHTML = arr[j-1];
+   x.style.opacity = 1.0 - (arr[j-1]/50);
+ }  
+}
+function restart()
+{
+  clearInterval(t);
+  startgame();
+}
+
+function starting()
+{
+ document.getElementById("grid").style.display = "block";	
+ document.getElementById("dem").disabled = true;
+ document.getElementById("dem1").disabled = false;
+ document.getElementById("b1").disabled = false;	
+ m = 0;
+ m = checkTime(m);
+ s = 0;
+ z = 0;
+ w = 0;
+ t = 0;
+ p = [];
+ count = 1;
+ for(var i =0;i<pp-1;i++)
+    arr[i] =i+1;
+ if(mode == 1)
+ 	disp1();
+ else
+ 	disp2();
+}
+function startTime() 
+{
+  s++;
+  if(s>=60){ s-=60;m++;m=checkTime(m);}
+  s = checkTime(s);
+  document.getElementById('txt').innerHTML = m + ":" + s;
+  if(m == 3)
+  {
+  	window.alert("SESSION TIME OUT!");
+  	clearInterval(t);
+  	starting();
+  }
+}
+
+function checkTime(i) 
+{
+  if (i < 10)
+   	i = "0" + i;
+  return i;}
+
+
+function shuffle(arr1) 
+{
+    var ctr = arr1.length, temp, index;
+    while (ctr > 0) {
+        index = Math.floor(Math.random() * ctr);
+        ctr--;
+        temp = arr1[ctr];
+        arr1[ctr] = arr1[index];
+        arr1[index] = temp;
+    }
+    return arr1;
+}
+function update(z)
+{
+  if(count<pp)
+  {	
+  if(count == arr[z-1])  
+  { x=document.getElementById("b"+z.toString());
+    x.innerHTML = count+(pp-1);
+    x.style.opacity = 1.0 - ((arr[z-1]+20)/50);
+	count++;
+    
+  }
+  }
+  if(count>(pp-1))
+  {
+  	if(count == (pp+(arr[z-1]-1)))  
+  { document.getElementById("b"+z.toString()).innerHTML = "";
+	count++;
+    
+  }
+
+  }	
+  if(count == ((2*pp)-1))
+  {
+     	clearInterval(t);
+     	high();
+     	document.getElementById("dem").disabled = false;
+  }
+
+}
+
+function high(){
+	if( mode==1){
+	
+    tt = document.getElementById("txt").innerHTML;
+    p = tt.split(":");
+	w = (p[0].valueOf()*60)+p[1].valueOf();
+	var flag=0;
+     if(w<best[0]) flag=1;
+     if(w<best[4])
+     { 
+      for(var ii=3;ii>=0;ii--)
+     	{   
+     		if(w<best[ii])
+     			best[ii+1] = best[ii];
+     		else
+     		{
+     			best[ii+1] = w;
+     			break;
+     		}
+     	}
+     }
+     if(flag == 1)  best[0] = w;
+     disp1();
+    }
+    
+    else {
+     	tt = document.getElementById("txt").innerHTML;
+        p = tt.split(":");
+   
+	    w = (p[0].valueOf()*60)+p[1].valueOf();
+	    var flag1=0;
+       if(w<best1[0]) flag1=1;
+       if(w<best1[4])
+       { 
+        for(var ii=3;ii>=0;ii--)
+     	{   
+     		if(w<best1[ii])
+     			best1[ii+1] = best1[ii];
+     		else
+     		{
+     			best1[ii+1] = w;
+     			break;
+     		}
+     	}
+     }
+     if(flag1 == 1)  best1[0] = w;
+     disp2();
+ }
+
+    
+    
+ }   
+function disp1()
+{  
+	for(var x1 =1;x1<6;x1++)
+	{
+ 	 if(best[x1 -1] == 1000)
+  		document.getElementById("h"+x1.toString()).innerHTML = "00"+":"+"00";
+	 else
+	 {
+       var b,c;
+       b = Math.floor(best[x1 -1]/60);
+       b  = checkTime(b);
+       c = best[x1 -1]%60;
+       c = checkTime(c);
+       document.getElementById("h"+x1.toString()).innerHTML= b.toString() + ":" + c.toString();
+     }
+  } 
+}
+function disp2()
+{   
+	for(var x1 =1;x1<6;x1++)
+	{
+ 	 if(best1[x1 -1] == 1000)
+  		document.getElementById("h"+x1.toString()).innerHTML = "00"+":"+"00";
+	 else
+	 {
+       var b,c;
+       b = Math.floor(best1[x1 -1]/60);
+       b  = checkTime(b);
+       c = best1[x1 -1]%60;
+       c = checkTime(c);
+       document.getElementById("h"+x1.toString()).innerHTML= b.toString() + ":" + c.toString();
+     }
+  } 
+}
+</script>
+
+
+
+</head>
+
+<body >
+<section>Click the numbers in the ascending order as quickly as possible</section>
+
+<main>
+  <div>
+  <table id ='grid' hidden>
+  	
+    <tr>
+      <td id ="1"><button class="button1" id="b1" onclick=update(1) disabled></button></td>
+      <td id ="2"><button class="button1" id="b2" onclick=update(2)></button></td>
+      <td id ="3"><button class="button1" id="b3" onclick=update(3)></button></td>
+      <td id ="4"><button class="button1" id="b4" onclick=update(4)></button></td>
+      <td id ="5"><button class="button1" id="b5" onclick=update(5)></button></td>
+    </tr>
+    <tr>
+      <td id ="6"><button class="button1" id="b6" onclick=update(6)></button></td>
+      <td id ="7"><button class="button1" id="b7" onclick=update(7)></button></td>
+      <td id ="8"><button class="button1" id="b8" onclick=update(8)></button></td>
+      <td id ="9"><button class="button1" id="b9" onclick=update(9)></button></td>
+      <td id ="10"><button class="button1" id="b10" onclick=update(10)></button></td>
+    </tr>
+    <tr>
+      <td id ="11"><button class="button1" id="b11" onclick=update(11)></button></td>
+      <td id ="12"><button class="button1" id="b12" onclick=update(12)></button></td>
+      <td id ="13"><button class="button1" id="b13" onclick=update(13)></button></td>
+      <td id ="14"><button class="button1" id="b14" onclick=update(14)></button></td>
+      <td id ="15"><button class="button1" id="b15" onclick=update(15)></button></td>
+    </tr>
+    <tr>
+      <td id ="16"><button class="button1" id="b16" onclick=update(16)></button></td>
+      <td id ="17"><button class="button1" id="b17" onclick=update(17)></button></td>
+      <td id ="18"><button class="button1" id="b18" onclick=update(18)></button></td>
+      <td id ="19"><button class="button1" id="b19" onclick=update(19)></button></td>
+      <td id ="20"><button class="button1" id="b20" onclick=update(20)></button></td>
+    </tr>
+    <tr>
+      <td id ="21"><button class="button1" id="b21" onclick=update(21)></button></td>
+      <td id ="22"><button class="button1" id="b22" onclick=update(22)></button></td>
+      <td id ="23"><button class="button1" id="b23" onclick=update(23)></button></td>
+      <td id ="24"><button class="button1" id="b24" onclick=update(24)></button></td>
+      <td id ="25"><button class="button1" id="b25" onclick=update(25)></button></td>
+    </tr>
+  </table></div><div id = "d0">
+  <div id = "d1"><p id = 'mo1'><button class="button2" id="m1" onclick= "mode1()">MODE1</button></p>
+  <p id = 'mo2'><button class="button2" id="m2" onclick= "mode2()">MODE2</button></p></div>
+  <div id = "d2"><p id = 'tx'><button class="button" id="dem" onclick= "startgame()" disabled>PLAY GAME</button></p>
+  <p id = 'txt1'><button class="button" id="dem1" onclick= "restart()" disabled>RESTART GAME</button></p></div></div>
+  <div>
+  <p id="50">
+    <p id= "h0"><button class="button" id="dem2" onclick= "disp()">TOPSCORES</p>
+    <p id= "h1"></p> 
+    <p id= "h2"></p> 
+    <p id= "h3"></p> 
+    <p id= "h4"></p>
+    <p id= "h5"></p>  
+  </p></div>
+</main>
+
+
+
+<style>
+#txt{
+	font-weight: bold;
+}
+html{
+  background-color: black;
+}
+main{
+	color: white;
+  text-align: center;
+}
+table{
+  margin-left: 5vw;
+  border:1px;
+  border-style: solid;
+  border-color: red;
+  float: left;
+
+}
+th,td{
+  
+  height: 5vw;
+  width: 5vw;
+}
+#d0{
+	column-count: 2;
+}
+#d2{
+	margin-top: 1vw;
+}
+h2{
+	color: green;
+  text-align: center;
+}
+div{
+	color:white;
+  margin:50;
+  text-align : right;
+}
+
+p{
+  color: white;
+  text-align: center;
+  margin-top: 550;
+}
+section{
+	color: green;
+  text-align: center;
+  padding-right: 55px;
+  padding-top: 70px;
+  font-size: 20px;
+  height :100;
+  width:150; 
+}
+.button{	
+  margin-top: 1vw;
+  border: none;
+  background-color: darkblue;
+  color: red;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px 20px;
+}
+
+.button2{
+  margin-top: 1vw;
+  border: none;
+  background-color: darkblue;
+  color: red;
+  text-align: center;
+  font-size: 15px;
+  padding: 10px 20px;
+}
+.button1{
+
+  background-color: green;
+  color: white;
+  font-weight: 1000;
+  height: 6vw;
+  width: 6vw;
+  opacity: 1.0;
+}
+</style>
+
+
+
+</body>
+</html>
