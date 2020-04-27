@@ -39,11 +39,14 @@ function mode2()
 {
   mode =2;	
   pp = 26;
-  document.getElementById("dem").disabled = false; 
+  document.getElementById("dem").disabled = false;
+  for(var i =21;i<26;i++)
+  document.getElementById("b"+i.toString()).style.display = "block"; 
 }
 function startgame()
 {	
- starting();	
+ starting();
+ myFunction();	
  t = setInterval(startTime,1000);
  arr = shuffle(arr);
  for(var j=1;j<pp;j++)
@@ -229,6 +232,10 @@ function disp2()
      }
   } 
 }
+function myFunction() {
+ document.getElementById("myaudio").autoplay = true;
+ document.getElementById("myaudio").loop = true;
+ }
 </script>
 
 
@@ -237,7 +244,7 @@ function disp2()
 
 <body >
 <section>Click the numbers in the ascending order as quickly as possible</section>
-
+<audio id ="myaudio" autoplay><source src="music.mp3"  type="audio/mpeg"></audio>	
 <main>
   <div>
   <table id ='grid' hidden>
@@ -270,7 +277,7 @@ function disp2()
       <td id ="19"><button class="button1" id="b19" onclick=update(19)></button></td>
       <td id ="20"><button class="button1" id="b20" onclick=update(20)></button></td>
     </tr>
-    <tr>
+    <tr hidden>
       <td id ="21"><button class="button1" id="b21" onclick=update(21)></button></td>
       <td id ="22"><button class="button1" id="b22" onclick=update(22)></button></td>
       <td id ="23"><button class="button1" id="b23" onclick=update(23)></button></td>
